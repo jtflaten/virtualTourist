@@ -15,6 +15,9 @@
 		58DF21F51EBA57370087140D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 58DF21F31EBA57370087140D /* LaunchScreen.storyboard */; };
 		58DF22001EBA57380087140D /* VirtualTouristTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58DF21FF1EBA57380087140D /* VirtualTouristTests.swift */; };
 		58DF220B1EBA57380087140D /* VirtualTouristUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58DF220A1EBA57380087140D /* VirtualTouristUITests.swift */; };
+		58DF22191EBA84F30087140D /* TravelLocationsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58DF22181EBA84F30087140D /* TravelLocationsViewController.swift */; };
+		58DF221B1EBA856F0087140D /* PhotoAlbumViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58DF221A1EBA856F0087140D /* PhotoAlbumViewController.swift */; };
+		58DF221E1EBBB48D0087140D /* TempViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58DF221D1EBBB48D0087140D /* TempViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -49,6 +52,9 @@
 		58DF22061EBA57380087140D /* VirtualTouristUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = VirtualTouristUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		58DF220A1EBA57380087140D /* VirtualTouristUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VirtualTouristUITests.swift; sourceTree = "<group>"; };
 		58DF220C1EBA57380087140D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		58DF22181EBA84F30087140D /* TravelLocationsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TravelLocationsViewController.swift; sourceTree = "<group>"; };
+		58DF221A1EBA856F0087140D /* PhotoAlbumViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhotoAlbumViewController.swift; sourceTree = "<group>"; };
+		58DF221D1EBBB48D0087140D /* TempViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TempViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -101,6 +107,7 @@
 			children = (
 				58DF21E71EBA57370087140D /* AppDelegate.swift */,
 				58DF21E91EBA57370087140D /* ViewController.swift */,
+				58DF221C1EBA85BA0087140D /* Controller */,
 				58DF21EB1EBA57370087140D /* Main.storyboard */,
 				58DF21F11EBA57370087140D /* Assets.xcassets */,
 				58DF21F31EBA57370087140D /* LaunchScreen.storyboard */,
@@ -126,6 +133,16 @@
 				58DF220C1EBA57380087140D /* Info.plist */,
 			);
 			path = VirtualTouristUITests;
+			sourceTree = "<group>";
+		};
+		58DF221C1EBA85BA0087140D /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				58DF22181EBA84F30087140D /* TravelLocationsViewController.swift */,
+				58DF221A1EBA856F0087140D /* PhotoAlbumViewController.swift */,
+				58DF221D1EBBB48D0087140D /* TempViewController.swift */,
+			);
+			name = Controller;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -196,6 +213,7 @@
 				TargetAttributes = {
 					58DF21E31EBA57370087140D = {
 						CreatedOnToolsVersion = 8.3.2;
+						DevelopmentTeam = K32U974K8Q;
 						ProvisioningStyle = Automatic;
 					};
 					58DF21FA1EBA57380087140D = {
@@ -263,8 +281,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				58DF21EA1EBA57370087140D /* ViewController.swift in Sources */,
+				58DF221E1EBBB48D0087140D /* TempViewController.swift in Sources */,
 				58DF21E81EBA57370087140D /* AppDelegate.swift in Sources */,
 				58DF21F01EBA57370087140D /* VirtualTourist.xcdatamodeld in Sources */,
+				58DF221B1EBA856F0087140D /* PhotoAlbumViewController.swift in Sources */,
+				58DF22191EBA84F30087140D /* TravelLocationsViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -416,6 +437,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = K32U974K8Q;
 				INFOPLIST_FILE = VirtualTourist/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = breaklist.VirtualTourist;
@@ -428,6 +450,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = K32U974K8Q;
 				INFOPLIST_FILE = VirtualTourist/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = breaklist.VirtualTourist;
