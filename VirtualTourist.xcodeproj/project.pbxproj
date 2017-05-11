@@ -18,6 +18,7 @@
 		58DF22191EBA84F30087140D /* TravelLocationsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58DF22181EBA84F30087140D /* TravelLocationsViewController.swift */; };
 		58DF221B1EBA856F0087140D /* PhotoAlbumViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58DF221A1EBA856F0087140D /* PhotoAlbumViewController.swift */; };
 		58DF221E1EBBB48D0087140D /* TempViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58DF221D1EBBB48D0087140D /* TempViewController.swift */; };
+		58DF22651EC3BBC10087140D /* GCDBlackBox.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58DF22641EC3BBC10087140D /* GCDBlackBox.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -55,6 +56,7 @@
 		58DF22181EBA84F30087140D /* TravelLocationsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TravelLocationsViewController.swift; sourceTree = "<group>"; };
 		58DF221A1EBA856F0087140D /* PhotoAlbumViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhotoAlbumViewController.swift; sourceTree = "<group>"; };
 		58DF221D1EBBB48D0087140D /* TempViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TempViewController.swift; sourceTree = "<group>"; };
+		58DF22641EC3BBC10087140D /* GCDBlackBox.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GCDBlackBox.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -113,6 +115,7 @@
 				58DF21F31EBA57370087140D /* LaunchScreen.storyboard */,
 				58DF21F61EBA57370087140D /* Info.plist */,
 				58DF21EE1EBA57370087140D /* VirtualTourist.xcdatamodeld */,
+				58DF22641EC3BBC10087140D /* GCDBlackBox.swift */,
 			);
 			path = VirtualTourist;
 			sourceTree = "<group>";
@@ -286,6 +289,7 @@
 				58DF21F01EBA57370087140D /* VirtualTourist.xcdatamodeld in Sources */,
 				58DF221B1EBA856F0087140D /* PhotoAlbumViewController.swift in Sources */,
 				58DF22191EBA84F30087140D /* TravelLocationsViewController.swift in Sources */,
+				58DF22651EC3BBC10087140D /* GCDBlackBox.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

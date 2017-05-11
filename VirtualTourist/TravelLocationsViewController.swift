@@ -13,23 +13,59 @@ import CoreData
 
 class TravelLocationsViewController: UIViewController {
     
-    var pins: [NSManagedObject] = []
+    var pins: [Pin] = []
     
     @IBOutlet weak var travelLocationsMapView: MKMapView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        // USER INTERACTION
         travelLocationsMapView.isUserInteractionEnabled = true
         let addPinGestureRecognizer = UILongPressGestureRecognizer(target: self, action: #selector(TravelLocationsViewController.addPin))
         addPinGestureRecognizer.minimumPressDuration = 2.5
         self.travelLocationsMapView.addGestureRecognizer(addPinGestureRecognizer)
         
+        //Populate the map
+        fetchPins()
+        putFetchedPinsOnMap(pins: pins)
+        
         
     }
     
-    //TODO: build a fetchreequest that populates the mapView with pins from the container
+    //fetch request for pins from core data
+    func fetchPins() {
+        guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else {
+            return
+        }
+        let managedContext = appDelegate.persistentContainer.viewContext
+        let pinFetchRequest = NSFetchRequest<Pin>(entityName: "Pin")
+        do {
+            pins =  try managedContext.fetch(pinFetchRequest)
+        } catch let error as NSError {
+                print("could not fetch. \(error), \(error.userInfo)")
+        }
+        
+    }
     
+    func putFetchedPinsOnMap(pins: [Pin]) {
+        var mapAnnotations = [MKPointAnnotation]()
+        
+        for pin in pins {
+            let lat = CLLocationDegrees(pin.latitude)
+            let long = CLLocationDegrees(pin.longitude)
+            let coordinate = CLLocationCoordinate2D(latitude: lat, longitude: long)
+            let annotation = MKPointAnnotation()
+            annotation.coordinate = coordinate
+            
+            mapAnnotations.append(annotation)
+        }
+        performUIUpdatesOnMain {
+            self.travelLocationsMapView.addAnnotations(mapAnnotations)
+        }
+    }
+    
+    //this func with the addPin Geture recognizer
     func addPin(gestureRecognizer: UIGestureRecognizer) {
         if gestureRecognizer.state == UIGestureRecognizerState.began {
             let touchedPoint = gestureRecognizer.location(in: travelLocationsMapView)
@@ -39,8 +75,8 @@ class TravelLocationsViewController: UIViewController {
             travelLocationsMapView.addAnnotation(newAnnotationFromLongTouch)
             savePin(lat: newAnnotationFromLongTouch.coordinate.latitude, long: newAnnotationFromLongTouch.coordinate.longitude)
             print("Lat: \(newAnnotationFromLongTouch.coordinate.latitude), Long: \(newAnnotationFromLongTouch.coordinate.longitude)")
-            //TODO: make sure the new pins' coordinates are saved.
-            //TODO: add the pin to ann array of pins that will be saved in core data.
+     
+           
         }
         
     }
@@ -51,7 +87,7 @@ class TravelLocationsViewController: UIViewController {
         }
         let managedContext = appDelegate.persistentContainer.viewContext
         let entity = NSEntityDescription.entity(forEntityName: "Pin", in: managedContext)!
-        let pin = NSManagedObject(entity: entity, insertInto: managedContext)
+        let pin = Pin(entity: entity, insertInto: managedContext) //NSManagedObject(entity: entity, insertInto: managedContext)
         pin.setValue(lat, forKeyPath: "latitude")
         pin.setValue(long, forKeyPath: "longitude")
         
