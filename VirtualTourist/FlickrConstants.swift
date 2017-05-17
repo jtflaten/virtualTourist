@@ -11,19 +11,19 @@ import UIKit
 
 struct FlickrConstants{
     
-    struct Flickr {
+   
         static let APIScheme = "https"
         static let APIHost = "api.flickr.com"
         static let APIPath = "/services/rest"
     
         static let SearchBBoxHalfWidth = 1.0
         static let SearchBBoxHalfHeight = 1.0
-        //these next two might not be needed
+  
         static let SearchLatRange = (-90.0, 90.0)
-        static let SearchLonRange = (-180.0, 180)
-    }
+        static let SearchLonRange = (-180.0, 180.0)
     
-    struct FlickrParameterKeys {
+    
+    struct ParameterKeys {
         static let Method = "method"
         static let APIKey = "api_key"
         static let GalleryID = "gallery_id"
@@ -36,7 +36,7 @@ struct FlickrConstants{
         static let Page = "page"
     }
     
-    struct FlcikrParameterValues {
+    struct ParameterValues {
         static let SearchMethod = "flickr.photos.search"
         static let GalleryPhotosMethod = "flickr.galleries.getPhotos" // may not be needed
         static let APIKey = "56bd90336cc752a9db224fae1d408588"
@@ -46,7 +46,7 @@ struct FlickrConstants{
         static let UseSafeSearch = "1"
     }
     
-    struct FlickrResponseKeys {
+    struct ResponseKeys {
         static let Status = "stat"
         static let Photos = "photos"
         static let Photo = "photo"
@@ -56,7 +56,7 @@ struct FlickrConstants{
         static let Total = "total"
     }
     
-    struct FlickrResponseValues {
+    struct ResponseValues {
         static let OKStatus = "ok"
     }
 }
