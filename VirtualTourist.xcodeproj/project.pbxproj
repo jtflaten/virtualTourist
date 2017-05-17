@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		582B9F4A1ECCDC2A003BB205 /* AlertViews.swift in Sources */ = {isa = PBXBuildFile; fileRef = 582B9F491ECCDC2A003BB205 /* AlertViews.swift */; };
+		582B9F4C1ECCEC96003BB205 /* IMG_0328.JPG in Resources */ = {isa = PBXBuildFile; fileRef = 582B9F4B1ECCEC96003BB205 /* IMG_0328.JPG */; };
 		58DF21E81EBA57370087140D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58DF21E71EBA57370087140D /* AppDelegate.swift */; };
 		58DF21EA1EBA57370087140D /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58DF21E91EBA57370087140D /* ViewController.swift */; };
 		58DF21ED1EBA57370087140D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 58DF21EB1EBA57370087140D /* Main.storyboard */; };
@@ -43,6 +45,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		582B9F491ECCDC2A003BB205 /* AlertViews.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlertViews.swift; sourceTree = "<group>"; };
+		582B9F4B1ECCEC96003BB205 /* IMG_0328.JPG */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = IMG_0328.JPG; sourceTree = "<group>"; };
 		58DF21E41EBA57370087140D /* VirtualTourist.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = VirtualTourist.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		58DF21E71EBA57370087140D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		58DF21E91EBA57370087140D /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -121,6 +125,7 @@
 				58DF221C1EBA85BA0087140D /* Controller */,
 				58DF21EB1EBA57370087140D /* Main.storyboard */,
 				58DF21F11EBA57370087140D /* Assets.xcassets */,
+				582B9F4B1ECCEC96003BB205 /* IMG_0328.JPG */,
 				58DF21F31EBA57370087140D /* LaunchScreen.storyboard */,
 				58DF21F61EBA57370087140D /* Info.plist */,
 				58DF21EE1EBA57370087140D /* VirtualTourist.xcdatamodeld */,
@@ -152,6 +157,7 @@
 			children = (
 				58DF22181EBA84F30087140D /* TravelLocationsViewController.swift */,
 				58DF221A1EBA856F0087140D /* PhotoAlbumViewController.swift */,
+				582B9F491ECCDC2A003BB205 /* AlertViews.swift */,
 				58DF226B1EC511710087140D /* PhotoAlbumColletctionViewCell.swift */,
 				58DF221D1EBBB48D0087140D /* TempViewController.swift */,
 			);
@@ -276,6 +282,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				582B9F4C1ECCEC96003BB205 /* IMG_0328.JPG in Resources */,
 				58DF21F51EBA57370087140D /* LaunchScreen.storyboard in Resources */,
 				58DF21F21EBA57370087140D /* Assets.xcassets in Resources */,
 				58DF21ED1EBA57370087140D /* Main.storyboard in Resources */,
@@ -308,6 +315,7 @@
 				58DF226C1EC511710087140D /* PhotoAlbumColletctionViewCell.swift in Sources */,
 				58DF21E81EBA57370087140D /* AppDelegate.swift in Sources */,
 				58DF22701EC647CD0087140D /* FlickrImageLink.swift in Sources */,
+				582B9F4A1ECCDC2A003BB205 /* AlertViews.swift in Sources */,
 				58DF21F01EBA57370087140D /* VirtualTourist.xcdatamodeld in Sources */,
 				58DF221B1EBA856F0087140D /* PhotoAlbumViewController.swift in Sources */,
 				58DF22671EC4AFE60087140D /* FlickrConstants.swift in Sources */,
@@ -560,6 +568,7 @@
 				58DF22111EBA57380087140D /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		58DF22121EBA57380087140D /* Build configuration list for PBXNativeTarget "VirtualTouristTests" */ = {
 			isa = XCConfigurationList;
@@ -568,6 +577,7 @@
 				58DF22141EBA57380087140D /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		58DF22151EBA57380087140D /* Build configuration list for PBXNativeTarget "VirtualTouristUITests" */ = {
 			isa = XCConfigurationList;
@@ -576,6 +586,7 @@
 				58DF22171EBA57380087140D /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 

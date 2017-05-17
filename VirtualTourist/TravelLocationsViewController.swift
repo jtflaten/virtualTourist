@@ -16,6 +16,7 @@ class TravelLocationsViewController: UIViewController {
  
     var pins: [Pin] = []
     let delegate = UIApplication.shared.delegate as! AppDelegate
+    
     var pinToPass = Pin()
     
     @IBOutlet weak var travelLocationsMapView: MKMapView!
@@ -39,10 +40,8 @@ class TravelLocationsViewController: UIViewController {
     
     //fetch request for pins from core data
     func fetchPins() {
-        guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else {
-            return
-        }
-        let managedContext = appDelegate.persistentContainer.viewContext
+     
+        let managedContext = delegate.persistentContainer.viewContext
         let pinFetchRequest = NSFetchRequest<Pin>(entityName: "Pin")
         do {
             pins =  try managedContext.fetch(pinFetchRequest)
@@ -87,8 +86,7 @@ class TravelLocationsViewController: UIViewController {
     
     func getPinFromAnnotationTap(lat: Double, long: Double) -> Pin {
         var pin: Pin?
-        let appDelegate = UIApplication.shared.delegate as? AppDelegate
-        let managedContext = appDelegate?.persistentContainer.viewContext
+        let managedContext = delegate.persistentContainer.viewContext
        //configure a FetchRequst for all the pins in core data
         let pinFetchRequest = NSFetchRequest<Pin>(entityName: "Pin")
        //set descriptors and a predicate so that the returned array as only one object: the pin who's lat and long are the same as the annotation
@@ -102,7 +100,7 @@ class TravelLocationsViewController: UIViewController {
         
         do
         {
-            pin = try managedContext?.fetch(pinFetchRequest)[0]
+            pin = try managedContext.fetch(pinFetchRequest)[0]
         } catch let error as NSError {
             print("could not get the pin\(error), \(error.userInfo)")
         }
