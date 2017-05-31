@@ -9,6 +9,7 @@
 import Foundation
 import UIKit
 import CoreData
+import MapKit
 
 class PhotoAlbumViewController: UIViewController {
     var pinPhotos: [Photo] = []
@@ -19,11 +20,13 @@ class PhotoAlbumViewController: UIViewController {
     
     @IBOutlet weak var flowLayout: UICollectionViewFlowLayout!
     @IBOutlet weak var collectionView: UICollectionView!
+    @IBOutlet weak var mapView: MKMapView!
     
     override func viewDidLoad() {
         collectionView.dataSource = self
         collectionView.delegate = self
         layoutCells()
+        showPinOnMap(pin)
         fetchPhotos(pin: pin)
         if pinPhotos == [] {
             downloadNewestPhotos()
@@ -145,6 +148,20 @@ class PhotoAlbumViewController: UIViewController {
         
     }
 
+    func showPinOnMap(_ pin: Pin) {
+        let lat = CLLocationDegrees(pin.latitude)
+        let long = CLLocationDegrees(pin.longitude)
+        let coordinate = CLLocationCoordinate2D(latitude: lat, longitude: long)
+        self.mapView.centerCoordinate = coordinate
+        let coordinateSpan = MKCoordinateSpanMake(0.65,0.65)
+        let coordinateRegion = MKCoordinateRegion(center: coordinate, span: coordinateSpan)
+        self.mapView.setRegion(coordinateRegion, animated: true)
+        
+        let annotation = MKPointAnnotation()
+        annotation.coordinate = coordinate
+        mapView.addAnnotation(annotation)
+        
+    }
     
 }
 
