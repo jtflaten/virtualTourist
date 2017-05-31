@@ -65,8 +65,9 @@ class PhotoAlbumViewController: UIViewController {
                 if links.count == 0 {
                     self.errorAlertView(errorMessage: "No images found at this location")
                 }
-                for link in links {
-                    while self.pinPhotos.count < self.maxCellCount {
+                while self.pinPhotos.count < self.maxCellCount {
+                    for link in links {
+                   
                         self.makePhoto(link: link, pin: self.pin)
                     }
                 }
@@ -180,18 +181,16 @@ extension PhotoAlbumViewController: UICollectionViewDelegate, UICollectionViewDa
         cell.imageView.image = nil
         
         
-        let photo = pinPhotos[(indexPath as NSIndexPath).row]
+        let photo = pinPhotos[indexPath.row]
         loadImage(photo: photo)
-        
-            performUIUpdatesOnMain {
-                if let image = UIImage(data: photo.image! as Data) {
-                cell.imageView!.image = image
-                collectionView.reloadData()
-                }
-            }
+        cell.showPhoto(photo)
         return cell
+        
+        
     }
     
+    
+ 
     
 }
 

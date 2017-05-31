@@ -87,9 +87,17 @@
                                                     <rect key="frame" x="-95" y="-39" width="240" height="128"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 </imageView>
+                                                <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="916-mQ-oWy">
+                                                    <rect key="frame" x="15" y="15" width="20" height="20"/>
+                                                </activityIndicatorView>
                                             </subviews>
                                         </view>
+                                        <constraints>
+                                            <constraint firstItem="916-mQ-oWy" firstAttribute="centerY" secondItem="iX5-ux-szI" secondAttribute="centerY" id="PSC-6B-TQl"/>
+                                            <constraint firstItem="916-mQ-oWy" firstAttribute="centerX" secondItem="iX5-ux-szI" secondAttribute="centerX" id="TN7-Ld-ZVK"/>
+                                        </constraints>
                                         <connections>
+                                            <outlet property="activityIndicator" destination="916-mQ-oWy" id="tfB-Lq-Z4Y"/>
                                             <outlet property="imageView" destination="hFh-Mw-ffJ" id="grg-x4-UaD"/>
                                         </connections>
                                     </collectionViewCell>
