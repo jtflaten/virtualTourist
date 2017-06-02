@@ -13,6 +13,7 @@ import MapKit
 
 class PhotoAlbumViewController: UIViewController {
     var pinPhotos: [Photo] = []
+    var photoLink: [String] = []
     var pin = Pin()
     var coordinate = String()
     let appDelegate = UIApplication.shared.delegate as! AppDelegate
@@ -68,13 +69,14 @@ class PhotoAlbumViewController: UIViewController {
                 }
                 
                 for link in links {
-                   
-                        self.makePhoto(link: link, pin: self.pin)
+                    while self.photoLink.count <= self.maxCellCount {
+                        self.photoLink.append(link)
+                    }
                 }
                 
             }
-            self.savePhotos()
-            self.collectionView.reloadData()
+            //self.savePhotos()
+            //self.collectionView.reloadData()
         }
     }
     
@@ -85,6 +87,7 @@ class PhotoAlbumViewController: UIViewController {
         let photo = Photo(entity: entity, insertInto: managedContext)
         photo.setValue(link, forKeyPath: "link")
         photo.setValue(pin, forKeyPath: "pin")
+        loadImage(photo: photo)
         pinPhotos.append(photo)
         pin.addToPhotos(photo)
     }
@@ -188,9 +191,10 @@ extension PhotoAlbumViewController: UICollectionViewDelegate, UICollectionViewDa
         cell.imageView.image = nil
         
         
-        let photo = pinPhotos[indexPath.row]
-        loadImage(photo: photo)
-        cell.showPhoto(photo)
+        let photo = photoLink[indexPath.row]
+        makePhoto(link: photo, pin: pin)
+        //loadImage(photo: photo)
+        cell.showPhoto(pinPhotos[indexPath.row])
         return cell
         
         
