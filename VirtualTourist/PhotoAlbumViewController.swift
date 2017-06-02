@@ -22,6 +22,7 @@ class PhotoAlbumViewController: UIViewController {
     @IBOutlet weak var collectionView: UICollectionView!
     @IBOutlet weak var mapView: MKMapView!
     
+    
     override func viewDidLoad() {
         collectionView.dataSource = self
         collectionView.delegate = self
@@ -55,7 +56,7 @@ class PhotoAlbumViewController: UIViewController {
     }
    
     func downloadNewestPhotos() {
-        deletePhotos(pin: self.pin)
+        deleteAllPhotos(pin: self.pin)
         FlickrClient.sharedInstance().getPhotosForLocation(latitude: pin.latitude, longitude: pin.longitude) { (links, error) in
             guard (error == nil) else {
                 print("there was an error downloading the photos")
@@ -65,12 +66,12 @@ class PhotoAlbumViewController: UIViewController {
                 if links.count == 0 {
                     self.errorAlertView(errorMessage: "No images found at this location")
                 }
-                while self.pinPhotos.count < self.maxCellCount {
-                    for link in links {
+                
+                for link in links {
                    
                         self.makePhoto(link: link, pin: self.pin)
-                    }
                 }
+                
             }
             self.savePhotos()
             self.collectionView.reloadData()
@@ -88,12 +89,14 @@ class PhotoAlbumViewController: UIViewController {
         pin.addToPhotos(photo)
     }
     
-    func deletePhotos(pin: Pin) {
+    func deleteAllPhotos(pin: Pin) {
         let managedContext = appDelegate.persistentContainer.viewContext
         for photo in pinPhotos {
             managedContext.delete(photo)
         }
         pinPhotos.removeAll()
+        collectionView.reloadData()
+        
     }
     
     func savePhotos(){
@@ -116,6 +119,10 @@ class PhotoAlbumViewController: UIViewController {
             print("no Photos found: \(error), \(error.userInfo)")
             pinPhotos = []
         }
+    }
+    
+    @IBAction func newCollection(_ sender: Any) {
+        downloadNewestPhotos()
     }
     
     struct Constants {
@@ -144,8 +151,8 @@ class PhotoAlbumViewController: UIViewController {
         flowLayout.itemSize.width = cellWidth
         flowLayout.itemSize.height = cellWidth
         flowLayout.minimumInteritemSpacing = Constants.cellVerticalSpaicng
-        let actualVerticalSpacing: CGFloat = (collectionView!.frame.width - (cellsInRow * cellWidth))/(cellsInRow - 1)
-        flowLayout.minimumLineSpacing = actualVerticalSpacing
+        //let actualVerticalSpacing: CGFloat = (collectionView!.frame.width - (cellsInRow * cellWidth))/(cellsInRow - 1)
+        flowLayout.minimumLineSpacing = Constants.cellVerticalSpaicng //actualVerticalSpacing
         
     }
 
@@ -177,7 +184,7 @@ extension PhotoAlbumViewController: UICollectionViewDelegate, UICollectionViewDa
     
       
         let  cell = collectionView.dequeueReusableCell(withReuseIdentifier: "PhotoAlbumCollectionViewCell", for: indexPath) as! PhotoAlbumCollectionViewCell
-       // let activityIndicator = UIActivityIndicatorView
+        //let activityIndicator = UIActivityIndicatorView
         cell.imageView.image = nil
         
         

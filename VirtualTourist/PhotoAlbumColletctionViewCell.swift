@@ -16,6 +16,7 @@ class PhotoAlbumCollectionViewCell: UICollectionViewCell{
     
     func showPhoto(_ photo: Photo) {
         self.activityIndicator.hidesWhenStopped = true
+        self.activityIndicator.startAnimating() 
         if photo.image != nil {
             performUIUpdatesOnMain {
                 self.imageView.image = UIImage(data: photo.image! as Data)
