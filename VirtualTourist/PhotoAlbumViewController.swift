@@ -44,9 +44,7 @@ class PhotoAlbumViewController: UIViewController {
     
     func loadImage(photo: Photo) {
         
-        
             let imageURL = URL(string: photo.link!)
-        
             if let imageData = try? Data(contentsOf: imageURL!) {
                 let image = UIImage(data: imageData)
                 guard let imageNSData = UIImageJPEGRepresentation(image!, 1) else {
@@ -54,7 +52,6 @@ class PhotoAlbumViewController: UIViewController {
                     return
                 }
                 photo.setValue(imageNSData, forKeyPath: "image")
-           
             }
         
     }
@@ -140,7 +137,6 @@ class PhotoAlbumViewController: UIViewController {
     
     @IBAction func newCollection(_ sender: Any) {
         downloadNewestPhotos()
-     //   makeLinksIntoPhotoObjects(photoLink)
     }
     
     struct Constants {
