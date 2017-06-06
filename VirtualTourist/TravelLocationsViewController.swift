@@ -163,6 +163,7 @@ extension TravelLocationsViewController: MKMapViewDelegate {
     mapView.deselectAnnotation(view.annotation, animated: false)
         
     }
+    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         let photoAlbumVC = segue.destination as! PhotoAlbumViewController
         photoAlbumVC.pin = pinToPass

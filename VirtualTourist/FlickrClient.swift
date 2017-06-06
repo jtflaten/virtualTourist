@@ -49,7 +49,7 @@ class FlickrClient: NSObject {
     }
     
     func getPhotosForLocation(latitude: Double, longitude: Double, completionHandllerForGetPhotos: @escaping (_ result: [String]?, _ error: NSError?) -> Void) {
-       
+        self.photoLinkArray.removeAll()
         let methodParameters = [
             FlickrConstants.ParameterKeys.Method: FlickrConstants.ParameterValues.SearchMethod,
             FlickrConstants.ParameterKeys.APIKey: FlickrConstants.ParameterValues.APIKey,
@@ -82,7 +82,7 @@ class FlickrClient: NSObject {
                 sendError("couldn't get photo array")
                 return
             }
-            print("\(photoArray)")
+           
             for eachPhotoDict in photoArray {
                 let photoLink = eachPhotoDict[FlickrConstants.ResponseKeys.MediumURL] as! String
                 self.photoLinkArray.append(photoLink)
@@ -91,13 +91,13 @@ class FlickrClient: NSObject {
             }
             performUIUpdatesOnMain {
                 let links = self.photoLinkArray
-                //globalImageLinkArray = self.photoLinkArray
+               
                 completionHandllerForGetPhotos(links, nil)
                 
-                print(globalPhotoArray)
+               
             }
         
-           // print(globalImageLinkArray)
+          
         }
     }
     

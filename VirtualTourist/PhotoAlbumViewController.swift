@@ -25,14 +25,17 @@ class PhotoAlbumViewController: UIViewController {
     
     
     override func viewDidLoad() {
+        fetchPhotos(pin: pin)
+        if pinPhotos == [] {
+            downloadNewestPhotos()
+            
+        }
         collectionView.dataSource = self
         collectionView.delegate = self
         layoutCells()
         showPinOnMap(pin)
-        fetchPhotos(pin: pin)
-        if pinPhotos == [] {
-            downloadNewestPhotos()
-        }
+        
+
       
        
     }
@@ -57,6 +60,7 @@ class PhotoAlbumViewController: UIViewController {
     }
    
     func downloadNewestPhotos() {
+        photoLink.removeAll()
         deleteAllPhotos(pin: self.pin)
         FlickrClient.sharedInstance().getPhotosForLocation(latitude: pin.latitude, longitude: pin.longitude) { (links, error) in
             guard (error == nil) else {
@@ -68,15 +72,19 @@ class PhotoAlbumViewController: UIViewController {
                     self.errorAlertView(errorMessage: "No images found at this location")
                 }
                 
-                for link in links {
-                    while self.photoLink.count <= self.maxCellCount {
+               
+                for link in links  {
+                    if self.photoLink.count < self.maxCellCount {
                         self.photoLink.append(link)
+                        self.makePhoto(link: link, pin: self.pin)
                     }
+                    
                 }
                 
+                
             }
-            //self.savePhotos()
-            //self.collectionView.reloadData()
+            self.savePhotos()
+            self.collectionView.reloadData()
         }
     }
     
@@ -87,7 +95,7 @@ class PhotoAlbumViewController: UIViewController {
         let photo = Photo(entity: entity, insertInto: managedContext)
         photo.setValue(link, forKeyPath: "link")
         photo.setValue(pin, forKeyPath: "pin")
-        loadImage(photo: photo)
+     
         pinPhotos.append(photo)
         pin.addToPhotos(photo)
     }
@@ -97,9 +105,15 @@ class PhotoAlbumViewController: UIViewController {
         for photo in pinPhotos {
             managedContext.delete(photo)
         }
+      
         pinPhotos.removeAll()
         collectionView.reloadData()
         
+    }
+    
+    func deleteThisOnePhoto(index: Int){
+        let managedContext = appDelegate.persistentContainer.viewContext
+        managedContext.delete(pinPhotos[index])
     }
     
     func savePhotos(){
@@ -126,6 +140,7 @@ class PhotoAlbumViewController: UIViewController {
     
     @IBAction func newCollection(_ sender: Any) {
         downloadNewestPhotos()
+     //   makeLinksIntoPhotoObjects(photoLink)
     }
     
     struct Constants {
@@ -187,22 +202,28 @@ extension PhotoAlbumViewController: UICollectionViewDelegate, UICollectionViewDa
     
       
         let  cell = collectionView.dequeueReusableCell(withReuseIdentifier: "PhotoAlbumCollectionViewCell", for: indexPath) as! PhotoAlbumCollectionViewCell
-        //let activityIndicator = UIActivityIndicatorView
+        cell.activityIndicator.startAnimating()
         cell.imageView.image = nil
-        
-        
-        let photo = photoLink[indexPath.row]
-        makePhoto(link: photo, pin: pin)
-        //loadImage(photo: photo)
+        let photo = pinPhotos[indexPath.row]
+        loadImage(photo: photo)
         cell.showPhoto(pinPhotos[indexPath.row])
         return cell
-        
-        
     }
+    
+        func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+            var itemsToDelete: [IndexPath] = []
+            itemsToDelete.append(indexPath)
+            pinPhotos.remove(at: indexPath.row)
+            self.deleteThisOnePhoto(index: indexPath.row)
+            self.collectionView.deleteItems(at: itemsToDelete)
+            
+        }
+        
+}
     
     
  
     
-}
+
 
 
