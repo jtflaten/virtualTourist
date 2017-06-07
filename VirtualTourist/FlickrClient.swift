@@ -101,6 +101,24 @@ class FlickrClient: NSObject {
         }
     }
     
+    func downloadImage(imagePath: String, comletionHandler: @escaping(_ imageData: Data?,_ errorString: String? ) -> Void) {
+        let session = URLSession.shared
+        let imageURL = NSURL(string: imagePath)
+        let request = NSURLRequest(url: imageURL! as URL)
+        
+        let task = session.dataTask(with: request as URLRequest) { (data, response, error) in
+            if error != nil {
+                comletionHandler(nil, "could not download image \(imagePath)")
+            } else {
+                performUIUpdatesOnMain {
+                    comletionHandler(data, nil)
+                }
+            }
+        }
+        task.resume()
+    }
+    
+    // MARK: Utilities
     func buildURLFromParameters(_ parameters:[String:AnyObject], withPathExtension: String? = nil) -> URL {
         var components = URLComponents()
         components.scheme = FlickrConstants.APIScheme

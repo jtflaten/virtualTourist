@@ -42,19 +42,7 @@ class PhotoAlbumViewController: UIViewController {
     
    
     
-    func loadImage(photo: Photo) {
-        
-            let imageURL = URL(string: photo.link!)
-            if let imageData = try? Data(contentsOf: imageURL!) {
-                let image = UIImage(data: imageData)
-                guard let imageNSData = UIImageJPEGRepresentation(image!, 1) else {
-                    print("error converting Jpeg")
-                    return
-                }
-                photo.setValue(imageNSData, forKeyPath: "image")
-            }
-        
-    }
+
    
     func downloadNewestPhotos() {
         photoLink.removeAll()
@@ -196,14 +184,36 @@ extension PhotoAlbumViewController: UICollectionViewDelegate, UICollectionViewDa
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
     
-      
+        
         let  cell = collectionView.dequeueReusableCell(withReuseIdentifier: "PhotoAlbumCollectionViewCell", for: indexPath) as! PhotoAlbumCollectionViewCell
         cell.activityIndicator.startAnimating()
         cell.imageView.image = nil
         let photo = pinPhotos[indexPath.row]
-        loadImage(photo: photo)
-        cell.showPhoto(pinPhotos[indexPath.row])
+        if photo.image != nil {
+            cell.showPhoto(photo)
+            
+        } else {
+            loadImage(photo: photo, cell: cell, indexPath: indexPath)
+            
+        }
         return cell
+        
+    }
+    func loadImage(photo: Photo, cell: PhotoAlbumCollectionViewCell, indexPath: IndexPath) {
+        
+        
+        FlickrClient.sharedInstance().downloadImage(imagePath: photo.link!) { imageData, error in
+            guard (error == nil) else {
+                print(error!)
+                return
+            }
+            photo.setValue(imageData, forKeyPath: "image")
+            performUIUpdatesOnMain {
+                cell.showPhoto(self.pinPhotos[indexPath.row])
+            }
+            self.savePhotos()
+        }
+        
     }
     
         func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
