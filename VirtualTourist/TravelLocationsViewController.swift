@@ -27,7 +27,7 @@ class TravelLocationsViewController: UIViewController {
         // USER INTERACTION
         travelLocationsMapView.isUserInteractionEnabled = true
         let addPinGestureRecognizer = UILongPressGestureRecognizer(target: self, action: #selector(TravelLocationsViewController.addPin))
-        addPinGestureRecognizer.minimumPressDuration = 2.5
+        addPinGestureRecognizer.minimumPressDuration = 0.5
         self.travelLocationsMapView.addGestureRecognizer(addPinGestureRecognizer)
         
         //Populate the map
@@ -134,7 +134,7 @@ class TravelLocationsViewController: UIViewController {
         
     }
     
- 
+
     
     func savePin(lat: CLLocationDegrees, long: CLLocationDegrees) {
         guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else {
@@ -145,6 +145,16 @@ class TravelLocationsViewController: UIViewController {
         let pin = Pin(entity: entity, insertInto: managedContext) //NSManagedObject(entity: entity, insertInto: managedContext)
         pin.setValue(lat, forKeyPath: "latitude")
         pin.setValue(long, forKeyPath: "longitude")
+        
+        FlickrClient.sharedInstance().getPagesForLocation(latitude: lat, longitude: long) { (pages, error) in
+            guard (error == nil) else {
+                print("there was an error downloading the photos")
+                return
+            }
+            if let pages = pages {
+                pin.setValue(pages, forKeyPath: "numOfPages")
+            }
+        }
         
         do {
             try managedContext.save()

@@ -27,7 +27,7 @@ class PhotoAlbumViewController: UIViewController {
     override func viewDidLoad() {
         fetchPhotos(pin: pin)
         if pinPhotos == [] {
-            downloadNewestPhotos()
+            downloadFirstPhotos()
             
         }
         collectionView.dataSource = self
@@ -44,7 +44,7 @@ class PhotoAlbumViewController: UIViewController {
     
 
    
-    func downloadNewestPhotos() {
+    func downloadFirstPhotos() {
         photoLink.removeAll()
         deleteAllPhotos(pin: self.pin)
         FlickrClient.sharedInstance().getPhotosForLocation(latitude: pin.latitude, longitude: pin.longitude) { (links, error) in
@@ -73,6 +73,36 @@ class PhotoAlbumViewController: UIViewController {
         }
     }
     
+    func downloadNewPhotos() {
+        photoLink.removeAll()
+        deleteAllPhotos(pin: self.pin)
+        FlickrClient.sharedInstance().getNewPhotosForLocation(latitude: pin.latitude, longitude: pin.longitude, numOfPages: pin.numOfPages) { (links, error) in
+            guard (error == nil) else {
+                print("there was an error downloading the photos")
+                return
+            }
+            if let links = links {
+                if links.count == 0 {
+                    self.errorAlertView(errorMessage: "No images found at this location")
+                }
+                
+                
+                for link in links  {
+                    if self.photoLink.count < self.maxCellCount {
+                        self.photoLink.append(link)
+                        self.makePhoto(link: link, pin: self.pin)
+                    }
+                    
+                }
+                
+                
+            }
+            self.savePhotos()
+            self.collectionView.reloadData()
+        }
+    }
+
+    
     func makePhoto(link: String, pin: Pin) {
       
         let managedContext = appDelegate.persistentContainer.viewContext
@@ -93,12 +123,13 @@ class PhotoAlbumViewController: UIViewController {
       
         pinPhotos.removeAll()
         collectionView.reloadData()
-        
+        savePhotos()
     }
     
     func deleteThisOnePhoto(index: Int){
         let managedContext = appDelegate.persistentContainer.viewContext
         managedContext.delete(pinPhotos[index])
+        savePhotos()
     }
     
     func savePhotos(){
@@ -124,7 +155,7 @@ class PhotoAlbumViewController: UIViewController {
     }
     
     @IBAction func newCollection(_ sender: Any) {
-        downloadNewestPhotos()
+        downloadNewPhotos()
     }
     
     struct Constants {
@@ -219,9 +250,12 @@ extension PhotoAlbumViewController: UICollectionViewDelegate, UICollectionViewDa
         func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
             var itemsToDelete: [IndexPath] = []
             itemsToDelete.append(indexPath)
+            
+            
+            self.deleteThisOnePhoto(index: (indexPath.row))
             pinPhotos.remove(at: indexPath.row)
-            self.deleteThisOnePhoto(index: indexPath.row)
             self.collectionView.deleteItems(at: itemsToDelete)
+            self.savePhotos()
             
         }
         

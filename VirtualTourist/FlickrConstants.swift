@@ -34,6 +34,10 @@ struct FlickrConstants{
         static let Text = "text"
         static let BoundingBox = "bbox"
         static let Page = "page"
+        static let PerPage = "per_page"
+        static let Radius = "radius"
+        static let Longitude = "lon"
+        static let Latitude = "lat"
     }
     
     struct ParameterValues {
@@ -44,6 +48,8 @@ struct FlickrConstants{
         static let DisableJSONCallback = "1"
         static let MediumURL = "url_m"
         static let UseSafeSearch = "1"
+        static let MaxPerPage = "30"
+        static let Radius = "5"
     }
     
     struct ResponseKeys {
